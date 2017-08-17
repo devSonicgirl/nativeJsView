@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="../jquery.nativeJsView.js"  type="text/javascript"></script>
+</head>
+<body>
+    <div id="data_dom">
+        <div>Name : <!--= name --></div>
+        <div>
+            Age : <!--= age -->
+            <!--_ if ( age > 15 ) { -->
+                (Over 15)
+            <!--_ } else { -->
+                (Under 15)
+            <!--_ } -->
+        </div>
+        <div>Birthday : <!--= moment(birthday).format("DD MMM YYYY") --></div>
+        <table>
+        <!--_
+            if ( foods ) {
+                $.each(foods, function(i, food){
+        -->
+            <tr style="background-color:<!--= food.color -->">
+                <td><!--= i --></td>
+                <td><!--= food.name --></td>
+                <td><!--= food.color --></td>
+            </tr>
+        <!--_
+                })
+            }
+        -->
+        </table>
+    </div>
+    <div>
+        Age : <input type=number name='age'> <button id='age_update_btn'>Update</button>
+    </div>
+</body>
+<script>
+$(document).ready(function(){
+    var data = {
+        name : 'Michelle Lee',
+        age : 17,
+        birthday : '2000-03-01',
+        foods : [
+            {
+                name : 'Apple',
+                color : 'Green'
+            },
+            {
+                name : 'Grape',
+                color : 'Purple'
+            },
+            {
+                name : 'banana',
+                color : 'Yellow'
+            }
+        ]
+    };
+
+    var nativeJsView_object = $("#data_dom").nativeJsView(data);
+
+    $("#age_update_btn").click(function(){
+        var age = $("input[name=age]").val();
+        if ( age ) {
+            data.age = age;
+            nativeJsView_object.refresh(data);
+        }
+    });
+});
+</script>
+</html>

@@ -1,0 +1,21 @@
+{
+    "company_name" : "ABCDEF Mart",
+    "city" : "Seoul",
+    "employee" : [
+        {
+            "name" : "Andrew",
+            "age" : 25,
+            "gender" : "male"
+        },
+        {
+            "name" : "Olivia",
+            "age" : 22,
+            "gender" : "female"
+        },
+        {
+            "name" : "John",
+            "age" : 23,
+            "gender" : "male"
+        }
+    ]
+}
