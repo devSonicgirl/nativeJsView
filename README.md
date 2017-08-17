@@ -12,7 +12,7 @@ jQuery-1.x or later.
 ## Usage
 Include jquery.nativeJsView.js.
 ````html
-<script src="jquery.nativeJsView.js"  type="text/javascript"></script>
+<script src="jquery.nativeJsView.min.js"  type="text/javascript"></script>
 ````
 
 ### Syntax
@@ -78,7 +78,7 @@ example.html
 <head>
     <meta charset='utf-8'>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script src="jquery.nativeJsView.js"  type="text/javascript"></script>
+    <script src="jquery.nativeJsView.min.js"  type="text/javascript"></script>
 </head>
 <body>
 <div id="company">    
