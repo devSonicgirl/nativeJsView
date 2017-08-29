@@ -7,6 +7,8 @@
  * Copyright 2017, devSonicgirl
  * Released under the MIT License.
  */
+var global_nativejsview_cell = {};
+
 (function($) {
     'use strict';
 
@@ -122,10 +124,20 @@
 
 
     $.fn.nativeJsView = function(tpl_data) {
-        var js_tpl = new nativejsview(this);
-        js_tpl.vars_define(tpl_data);
-        js_tpl.render();
-        js_tpl.call();
+
+        var id = this.attr('id');
+        var js_tpl;
+
+        if (global_nativejsview_cell[id] === undefined) {
+            js_tpl = new nativejsview(this);
+            js_tpl.vars_define(tpl_data);
+            js_tpl.render();
+            js_tpl.call();
+            global_nativejsview_cell[id] = js_tpl;
+        } else {
+            js_tpl = global_nativejsview_cell[id]
+            js_tpl.refresh(tpl_data);
+        }
 
         return js_tpl;
     }

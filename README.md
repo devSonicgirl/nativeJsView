@@ -67,6 +67,8 @@ $(document).ready(function(){
     // update
     person.age = 20;
     templateView.refresh(person);
+    // or
+    // $("#template").nativeJsView(person);
 });
 ````
 
