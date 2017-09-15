@@ -25,15 +25,12 @@ var global_nativejsview_cell = {};
         script_body: '',
 
         init: function(dom_object) {
-
             var tpl_obj = dom_object;
             if (!$(tpl_obj).attr('id')) {
-                $(tpl_obj).attr('id', "jv_" + new Date().getTime() + (parseInt(Math.random() * 100)).toString());
+                $(tpl_obj).attr('id', "jv_" + new Date().getTime() + (parseInt(Math.random() * 1000)).toString());
             }
             this.js_id = $(tpl_obj).attr('id');
             this.dom = $(tpl_obj).html();
-
-
         },
 
         setjs: function(command, type) {
@@ -128,11 +125,12 @@ var global_nativejsview_cell = {};
         var id = this.attr('id');
         var js_tpl;
 
-        if (global_nativejsview_cell[id] === undefined) {
+        if (typeof global_nativejsview_cell[id] == 'undefined') {
             js_tpl = new nativejsview(this);
             js_tpl.vars_define(tpl_data);
             js_tpl.render();
             js_tpl.call();
+            id = $(this).attr('id');
             global_nativejsview_cell[id] = js_tpl;
         } else {
             js_tpl = global_nativejsview_cell[id]
