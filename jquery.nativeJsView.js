@@ -93,18 +93,18 @@ var global_nativejsview_cell = {};
                 return "\")\n".concat(s1.trim(), "\n", "put_html(\"");
             });
 
-
             this.setjs("var ".concat(render_var, " = ''"), script_type);
             this.setjs("function put_html(html) { ".concat(render_var, "=", render_var, ".concat(html)", "}"), script_type);
-
             this.setjs("put_html(\"".concat(dom, "\")"), script_type);
-            this.setjs("$('#".concat(this.js_id, "').html(", render_var, ")"), script_type);
+            this.setjs("if ( mode != 'append' ) {  $('#".concat(this.js_id, "').html(", render_var, ") } else { $('#", this.js_id, "').append(", render_var, ") }"), script_type);
+            $("#" + this.js_id).html('');
         },
 
-        call: function() {
+        call: function(mode) {
             var script_all = this.script_vars.concat(this.script_body);
             try {
-                new Function(script_all)();
+                var args = "mode='" + mode + "'";
+                new Function(args, script_all)();
             } catch (e) {
                 console.log("%cjv-error" + "%c " + e, "background-color:#ff0000; color:#ffffff;", "color:#000000");
                 $("#" + this.js_id).html('');
@@ -115,6 +115,11 @@ var global_nativejsview_cell = {};
         refresh: function(tpl_data) {
             this.vars_define(tpl_data);
             this.call();
+        },
+
+        append: function(tpl_data) {
+            this.vars_define(tpl_data);
+            this.call('append');
         }
     }
     nativejsview.prototype.constructor = nativejsview;
@@ -125,16 +130,20 @@ var global_nativejsview_cell = {};
         var id = this.attr('id');
         var js_tpl;
 
-        if (typeof global_nativejsview_cell[id] == 'undefined') {
+        if (typeof global_nativejsview_cell[id] === 'undefined') {
             js_tpl = new nativejsview(this);
-            js_tpl.vars_define(tpl_data);
-            js_tpl.render();
-            js_tpl.call();
+            if (tpl_data) {
+                js_tpl.vars_define(tpl_data);
+                js_tpl.render();
+                js_tpl.call();
+            } else {
+                js_tpl.render();
+            }
             id = $(this).attr('id');
             global_nativejsview_cell[id] = js_tpl;
         } else {
             js_tpl = global_nativejsview_cell[id]
-            js_tpl.refresh(tpl_data);
+            if (tpl_data) js_tpl.refresh(tpl_data);
         }
 
         return js_tpl;

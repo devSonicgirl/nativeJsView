@@ -57,7 +57,10 @@ $(document).ready(function(){
 ````
 You can create a template to inject data and inject the prepared data.
 
-If you want to update the data, use `nativeJsView.refresh(update_data)`.
+
+#### Refresh
+
+If you want to update the data, use `refresh(update_data)`.
 
 
 ````javascript
@@ -69,6 +72,27 @@ $(document).ready(function(){
     templateView.refresh(person);
     // or
     // $("#template").nativeJsView(person);
+});
+````
+
+#### Append
+
+If you want to add data without updating, use `append(add_data)`.
+
+````javascript
+$(document).ready(function(){
+    var data = {
+        name : 'Michelle Lee',
+        age : 20
+    }
+    var templateView = $("#template").nativeJsView(data);
+
+    // append
+    var add_data = {
+        name : 'Andrew',
+        age : 23
+    }
+    templateView.append(add_data);
 });
 ````
 

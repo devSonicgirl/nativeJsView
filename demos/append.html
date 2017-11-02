@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="../jquery.nativeJsView.min.js"  type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        name : <input type=text name='name'><BR>
+        age : <input type=number name='age'><BR>
+        birthday : <input type=date name='birthday'><BR>
+        <button id='age_append_btn'>Append</button>
+    </div>
+    <div id="data_dom">
+        <hr>
+        <div>Name : <!--= name --></div>
+        <div>
+            Age : <!--= age -->
+            <!--_ if ( age > 15 ) { -->
+                (Over 15)
+            <!--_ } else { -->
+                (Under 15)
+            <!--_ } -->
+        </div>
+        <div>Birthday : <!--= moment(birthday).format("DD MMM YYYY") --></div>
+    </div>
+
+</body>
+<script>
+$(document).ready(function(){
+
+    var nativeJsView_object = $("#data_dom").nativeJsView();
+
+    $("#age_append_btn").click(function(){
+        var name = $("input[name=name]").val();
+        var age = $("input[name=age]").val();
+        var birthday = $("input[name=birthday]").val();
+
+        var data = {
+            name : name,
+            age : age,
+            birthday : birthday
+        }
+
+        if ( name ) {
+            nativeJsView_object.append(data);
+        }
+    });
+});
+</script>
+</html>
