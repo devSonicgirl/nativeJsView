@@ -48,7 +48,11 @@ var global_nativejsview_cell = {};
             $.each(tpl_data, function(name, value) {
                 switch (typeof value) {
                     case 'string':
-                        this_object.setjs("var " + name + " = \"" + value.replace(/\"/g, '\\"') + "\"", script_type);
+                        value = value.replace(/\"/g, '\\"');
+                        value = value.replace(/\n/g, ' ');
+                        value = value.replace(/\r/g, "");
+
+                        this_object.setjs("var " + name + " = \"" + value + "\"", script_type);
                         break;
                     case 'number':
                         this_object.setjs("var " + name + " = " + value, script_type);
